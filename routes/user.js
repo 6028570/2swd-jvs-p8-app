@@ -36,7 +36,6 @@ router.post("/logout", async (request, response) => {
 });
 
 router.post("/register", async (request, response) => {
-
     const { username, password, email } = request.body.register || {};
     console.log(username);
     
