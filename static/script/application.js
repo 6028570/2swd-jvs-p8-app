@@ -12,34 +12,69 @@ export class Application {
 
     init() {
         this.updateHTML();
-        document.querySelector("#main-header .login").addEventListener("click", (event) => {
-            event.preventDefault();
-            this.login("admin", "admin");
-        });
+        const loginButton = document.querySelector("#main-header .login");
+        const logoutButton = document.querySelector("#main-header .logout");
 
-        document.querySelector("#main-header .logout").addEventListener("click", (event) => {
-            event.preventDefault();
-            this.logout();
-        });
+        if (loginButton) {
+            loginButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.login("admin", "admin");
+            });
+        }
 
-        console.log("Application intialized");
+        if (logoutButton) {
+            logoutButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.logout();
+            });
+        }
+
+        console.log("Application initialized");
     }
 
     updateHTML() {
         if(this.user) {
-            // Update links when user is logged in
-            document.querySelector("#main-header .login").style.display = "none";
-            document.querySelector("#main-header .logout").style.display = "inline";
-            document.querySelector("#main-header .register").style.display = "none";
-            document.querySelector("#main-header .profile").style.display = "inline";
-        } else {
-            // Update links when user is not logged in
-            document.querySelector("#main-header .login").style.display = "inline";
-            document.querySelector("#main-header .logout").style.display = "none";
-            document.querySelector("#main-header .register").style.display =
-                "inline";
-            document.querySelector("#main-header .profile").style.display = "none";
+            const loginButton = document.querySelector("#main-header .login");
+            const logoutButton = document.querySelector("#main-header .logout");
+            const registerButton = document.querySelector("#main-header .register");
+            const profileButton = document.querySelector("#main-header .profile");
 
+            if (loginButton) {
+                loginButton.style.display = "none";
+            }
+
+            if (logoutButton) {
+                logoutButton.style.display = "inline";
+            }
+
+            if (registerButton) {
+                registerButton.style.display = "none";
+            }
+
+            if (profileButton) {
+                profileButton.style.display = "inline";
+            }
+        } else {
+            const loginButton = document.querySelector("#main-header .login");
+            const logoutButton = document.querySelector("#main-header .logout");
+            const registerButton = document.querySelector("#main-header .register");
+            const profileButton = document.querySelector("#main-header .profile");
+
+            if (loginButton) {
+                loginButton.style.display = "inline";
+            }
+
+            if (logoutButton) {
+                logoutButton.style.display = "none";
+            }
+
+            if (registerButton) {
+                registerButton.style.display = "inline";
+            }
+
+            if (profileButton) {
+                profileButton.style.display = "none";
+            }
         }
     }
 
@@ -57,60 +92,23 @@ export class Application {
         this.updateHTML();
     }
 }
-export class User {
-    constructor(username) {
-        this.username = username;
-    }
-}
-
-export class Application {
-    constructor() {
-        console.log("Constructor called");
-        this.userLoggedIn = false;
-        this.currentUser = null;
-    }
-
-    updateDOM() {
-        const loginLink = document.getElementById("login-link");
-        const logoutLink = document.getElementById("logout-link");
-
-        if (this.userLoggedIn) {
-            loginLink.style.display = "none";
-            logoutLink.style.display = "block";
-        } else {
-            loginLink.style.display = "block";
-            logoutLink.style.display = "none";
-        }
-    }
-
-    login() {
-        const username = prompt("Enter your username:");
-        if (username) {
-            this.currentUser = new User(username);
-            this.userLoggedIn = true;
-            this.updateDOM();
-        }
-    }
-
-    logout() {
-        this.currentUser = null;
-        this.userLoggedIn = false;
-        this.updateDOM();
-    }
-}
 
 document.addEventListener("DOMContentLoaded", () => {
     const app = new Application();
-    app.updateDOM();
+    app.updateHTML();
 
     const loginLink = document.getElementById("login-link");
     const logoutLink = document.getElementById("logout-link");
 
-    loginLink.addEventListener("click", () => {
-        app.login();
-    });
+    if (loginLink) {
+        loginLink.addEventListener("click", () => {
+            app.login();
+        });
+    }
 
-    logoutLink.addEventListener("click", () => {
-        app.logout();
-    });
+    if (logoutLink) {
+        logoutLink.addEventListener("click", () => {
+            app.logout();
+        });
+    }
 });
